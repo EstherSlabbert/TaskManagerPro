@@ -8,6 +8,7 @@
 *.userprefs
 
 # Ignore Visual Studio files
+.vs/TaskManagerPro/v17
 .vscode/
 .vs/
 .sln
