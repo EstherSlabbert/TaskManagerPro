@@ -1,0 +1,7 @@
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\bin\Debug\TaskManagerPro.exe.config
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\bin\Debug\TaskManagerPro.exe
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\bin\Debug\TaskManagerPro.pdb
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\obj\Debug\TaskManagerPro.csproj.AssemblyReference.cache
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\obj\Debug\TaskManagerPro.csproj.CoreCompileInputs.cache
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\obj\Debug\TaskManagerPro.exe
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\obj\Debug\TaskManagerPro.pdb
