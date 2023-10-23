@@ -16,3 +16,13 @@ C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManager
 C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\TaskManagerPro.exe
 C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\TaskManagerPro.pdb
 C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\TaskManagerPro.exe.config
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\Castle.Core.dll
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\Moq.dll
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\Castle.Core.xml
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\Moq.xml
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerProTests\bin\Debug\Newtonsoft.Json.xml
