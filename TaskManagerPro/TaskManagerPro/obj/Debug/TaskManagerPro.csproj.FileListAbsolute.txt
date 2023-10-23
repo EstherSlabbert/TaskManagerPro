@@ -5,3 +5,6 @@ C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManager
 C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\obj\Debug\TaskManagerPro.csproj.CoreCompileInputs.cache
 C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\obj\Debug\TaskManagerPro.exe
 C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\obj\Debug\TaskManagerPro.pdb
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\bin\Debug\Newtonsoft.Json.dll
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\bin\Debug\Newtonsoft.Json.xml
+C:\Users\super\OneDrive\Documents\C#_fundamentals\TaskManagerProRepo\TaskManagerPro\TaskManagerPro\obj\Debug\TaskManagerPro.csproj.CopyComplete
