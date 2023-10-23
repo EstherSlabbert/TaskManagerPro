@@ -2,7 +2,7 @@
 
 namespace TaskManagerPro
 {
-    internal class TaskBase
+    public class TaskBase
     {
         public int TaskId { get; set; }
         public string TaskTitle { get; set; }
