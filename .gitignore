@@ -1,6 +1,10 @@
 # Ignore bin and obj directories
 */bin/
 */obj/
+/TaskManagerPro/TaskManagerPro/bin/Debug
+/TaskManagerPro/TaskManagerPro/obj/Debug
+/TaskManagerProTests/TaskManagerPro/bin/Debug
+/TaskManagerProTests/TaskManagerPro/obj/Debug
 
 # Ignore user-specific files
 *.user
