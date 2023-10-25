@@ -69,10 +69,10 @@ namespace TaskManagerPro
                         break;
                     case "4":
                         UserInterface.DisplayMainMenuChoiceOpeningStatement("Option 4 - Search For Task(s)");
+                        UserInterface.DisplaySearchSubMenu();
+                        var searchChoice = TaskManager.ValidatedEditSelection(consoleUserInterface);
                         // Search for task(s)
-                            // find task
-                            // display task
-                        // SearchTasks();
+                        TaskManager.SearchForTasks(searchChoice, consoleUserInterface);
                         UserInterface.DisplayContinueToMainMenuMessage();
                         break;
                     case "5":

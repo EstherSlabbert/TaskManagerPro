@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -265,6 +266,155 @@ namespace TaskManagerPro
                     break;
                 case "6":
                     userInterface.WriteLine("\nEdit has been cancelled.");
+                    break;
+                default:
+                    userInterface.WriteLine("\nInvalid choice. Try again.");
+                    break;
+            }
+        }
+
+        public static string ValidatedTaskCompletionStatusSelection(IUserInterface userInterface)
+        {
+            userInterface.WriteLine("Enter your choice (1-3): ");
+            string userChoice = userInterface.ReadLine();
+            while (!new[] { "1", "2", "3" }.Any(choice => choice == userChoice))
+            {
+                userInterface.WriteLine("Invalid option. Please try again.");
+                userInterface.WriteLine("Enter your choice (1-3): ");
+                userChoice = userInterface.ReadLine();
+            }
+            return userChoice;
+        }
+
+        public static void DisplayTasksByCompletion(string userSelection)
+        {
+            switch (userSelection)
+            {
+                case "1":
+                    if (FindTasksByCompletionStatus(true).Count == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nNo tasks found.\nPlease try again.");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nSearch Results:\n");
+                        foreach (var task in FindTasksByCompletionStatus(true))
+                        {
+                            DisplayTask(task);
+                        }
+                    }
+                    break;
+                case "2":
+                    if (FindTasksByCompletionStatus(true).Count == 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nNo tasks found.\nPlease try again.");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nSearch Results:\n");
+                        foreach (var task in FindTasksByCompletionStatus(false))
+                        {
+                            DisplayTask(task);
+                        }
+                    }
+                    break;
+                case "3":
+                    Console.WriteLine("Search cancelled. Returning to main menu...");
+                    break;
+                default:
+                    Console.WriteLine("Invalid Input. Try again.");
+                    break;
+            }
+        }
+
+        public static void SearchForTasks(string userChoice, IUserInterface userInterface)
+        {
+            switch (userChoice)
+            {
+                case "1":
+                    UserInterface.DisplaySearchSubMenuTitle("ID");
+                    int potentialId = GetValidTaskId(userInterface);
+                    if (potentialId == 0) userInterface.WriteLine("Search cancelled. Returning to main menu...");
+                    else if (potentialId == -1)
+                    {
+                        userInterface.WriteLine("Invalid Task ID. Try again.");
+                        SearchForTasks("1", userInterface);
+                    }
+                    else DisplayTask(FindTaskById(potentialId));
+                    break;
+                case "2":
+                    UserInterface.DisplaySearchSubMenuTitle("Title");
+                    userInterface.WriteLine("Enter the title/partial title you would like to search for:");
+                    var potentialTasksByTitle = FindTasksByPartialTitle(userInterface.ReadLine());
+                    if (potentialTasksByTitle.Count == 0)
+                    {
+                        UserInterface.DisplayConfirmationToContinueSearchOrExit("Title");
+                        ConsoleKeyInfo keyInfo = Console.ReadKey();
+                        if (keyInfo.Key == ConsoleKey.Spacebar) break;
+                        else SearchForTasks("2", userInterface);
+                    }
+                    else
+                    {
+                        userInterface.WriteLine("\nSearch Results:\n");
+                        foreach (var task in potentialTasksByTitle)
+                        {
+                            DisplayTask(task);
+                        }
+                    }
+                    break;
+                case "3":
+                    UserInterface.DisplaySearchSubMenuTitle("Description");
+                    userInterface.WriteLine("Enter the description/partial description you would like to search for:");
+                    var potentialTasksByDescription = FindTasksByPartialDescription(userInterface.ReadLine());
+                    if (potentialTasksByDescription.Count == 0)
+                    {
+                        UserInterface.DisplayConfirmationToContinueSearchOrExit("Description");
+                        ConsoleKeyInfo keyInfo = Console.ReadKey();
+                        if (keyInfo.Key == ConsoleKey.Spacebar) break;
+                        else SearchForTasks("3", userInterface);
+                    }
+                    else
+                    {
+                        userInterface.WriteLine("\nSearch Results:\n");
+                        foreach (var task in potentialTasksByDescription)
+                        {
+                            DisplayTask(task);
+                        }
+                    }
+                    break;
+                case "4":
+                    UserInterface.DisplaySearchSubMenuTitle("Due Date");
+                    userInterface.WriteLine("Enter the due date you would like to search for:");                    
+                    var potentialTasksByDueDate = FindTasksByDueDate(ValidatedUserDateInput(userInterface));
+                    if (potentialTasksByDueDate.Count == 0)
+                    {
+                        UserInterface.DisplayConfirmationToContinueSearchOrExit("Due Date");
+                        ConsoleKeyInfo keyInfo = Console.ReadKey();
+                        if (keyInfo.Key == ConsoleKey.Spacebar) break;
+                        else SearchForTasks("4", userInterface);
+                    }
+                    else
+                    {
+                        userInterface.WriteLine("\nSearch Results:\n");
+                        foreach (var task in potentialTasksByDueDate)
+                        {
+                            DisplayTask(task);
+                        }
+                    }
+                    break;
+                case "5":
+                    UserInterface.DisplaySearchSubMenuTitle("Completion Status");
+                    UserInterface.DisplayCompletionStatusSearchSubSubMenu();
+                    userInterface.WriteLine("Enter the completion status you would like to search for: ");
+                    var userSelection = ValidatedTaskCompletionStatusSelection(userInterface);
+                    DisplayTasksByCompletion(userSelection);
+                    break;
+                case "6":
+                    userInterface.WriteLine("Search has been cancelled");
                     break;
                 default:
                     userInterface.WriteLine("\nInvalid choice. Try again.");
