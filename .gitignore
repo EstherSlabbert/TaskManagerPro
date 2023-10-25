@@ -8,7 +8,7 @@
 *.userprefs
 
 # Ignore Visual Studio files
-.vs/TaskManagerPro/v17
+/.vs/
 .vscode/
 .vs/
 .sln
@@ -32,19 +32,6 @@
 *.user
 *.userprefs
 *.vspscc
-
-# Ignore .DS_Store files on macOS
-.DS_Store
-
-# Ignore Resharper folders and files
-_ReSharper*/
-
-# Ignore Rider folders and files
-.idea/
-.idea
-
-# Ignore macOS-specific files
-.DS_Store
 
 # Ignore database files
 *.mdf
