@@ -216,6 +216,36 @@ namespace TaskManagerProTests
         }
 
         [TestMethod]
+        public void ValidateTaskId_WhenValidTaskIdExists_ShouldReturnTrueAndSetTaskId()
+        {
+            // Arrange
+            int taskId;
+            var userInput = "1"; // Assuming a valid task ID
+
+            // Act
+            bool result = TaskManager.ValidateTaskId(userInput, out taskId);
+
+            // Assert
+            Assert.IsTrue(result, "ValidateTaskId should return true for a valid task ID.");
+            Assert.AreEqual(1, taskId, "TaskId should be set to the parsed value.");
+        }
+
+        [TestMethod]
+        public void ValidateTaskId_WhenInvalidTaskIdExists_ShouldReturnFalse()
+        {
+            // Arrange
+            int taskId;
+            var userInput = "invalid id"; // Assuming an invalid task ID
+
+            // Act
+            bool result = TaskManager.ValidateTaskId(userInput, out taskId);
+
+            // Assert
+            Assert.IsFalse(result, "ValidateTaskId should return false for an invalid task ID.");
+        }
+
+
+        [TestMethod]
         public void FindTaskById_WhenTaskExists_ShouldReturnTask()
         {
             // Arrange
@@ -768,17 +798,288 @@ namespace TaskManagerProTests
             var taskToEdit = new TaskBase(1, "Original Title", "Description", DateTime.Now, false);
             var userInput = "Invalid Choice"; // Invalid user input
 
-            mockConsole.SetupSequence(c => c.ReadLine())
-                .Returns(userInput);
-
             TaskManager taskManager = new TaskManager(mockConsole.Object);
 
             // Act
-            TaskManager.EditTask(taskToEdit, "InvalidChoice", mockConsole.Object);
+            TaskManager.EditTask(taskToEdit, userInput, mockConsole.Object);
 
             // Assert
             Assert.AreEqual("Original Title", taskToEdit.TaskTitle, "Task Title should not be updated.");
             Equals("Invalid choice. Try again.", consoleOutput.ToString());
+        }
+
+        [TestMethod]
+        public void ValidatedTaskCompletionStatusSelection_WhenValidChoice_ShouldReturnChoice()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userChoices = new Queue<string>(new[] { "1", "2", "3" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userChoices.Dequeue());
+
+            // Act
+            string result = TaskManager.ValidatedTaskCompletionStatusSelection(mockUserInterface.Object);
+
+            // Assert
+            Assert.AreEqual("1", result, "ValidatedTaskCompletionStatusSelection should return the valid choice.");
+        }
+
+        [TestMethod]
+        public void ValidatedTaskCompletionStatusSelection_WhenInvalidChoiceThenValidChoice_ShouldReturnValidChoice()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userChoices = new Queue<string>(new[] { "4", "2" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userChoices.Dequeue());
+
+            // Act
+            string result = TaskManager.ValidatedTaskCompletionStatusSelection(mockUserInterface.Object);
+
+            // Assert
+            Assert.AreEqual("2", result, "ValidatedTaskCompletionStatusSelection should return the valid choice after an invalid choice.");
+        }
+
+        [TestMethod]
+        public void DisplayTasksByCompletion_WhenUserSelectsCompletedTasks_ShouldDisplayCompletedTasks()
+        {
+            // Arrange
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now, true),
+                new TaskBase(3, "Task 3", "Description 3", DateTime.Now, false),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.DisplayTasksByCompletion("1");
+
+            // Assert
+            Assert.IsTrue(consoleOutput.ToString().Contains("Search Results:"), "Search Results should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 1"), "Task ID: 1 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 2"), "Task ID: 2 should be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 3"), "Task ID: 3 should not be displayed.");
+        }
+
+        [TestMethod]
+        public void DisplayTasksByCompletion_WhenUserSelectsIncompleteTasks_ShouldDisplayIncompleteTasks()
+        {
+            // Arrange
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now, true),
+                new TaskBase(3, "Task 3", "Description 3", DateTime.Now, false),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.DisplayTasksByCompletion("2");
+
+            // Assert
+            Assert.IsTrue(consoleOutput.ToString().Contains("Search Results:"), "Search Results should be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 1"), "Task ID: 1 should be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 2"), "Task ID: 2 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 3"), "Task ID: 3 should not be displayed.");
+        }
+
+        [TestMethod]
+        public void DisplayTasksByCompletion_WhenUserCancelsSearch_ShouldDisplayCancellationMessage()
+        {
+            // Arrange
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.DisplayTasksByCompletion("3");
+
+            // Assert
+            Equals("Search cancelled. Returning to main menu...", consoleOutput.ToString());
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenChoiceIsInvalid_ShouldDisplayErrorMessage()
+        {
+            // Arrange
+            var mockConsole = new Mock<IUserInterface>();
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            var userInput = "Invalid Choice"; // Invalid user input
+
+            TaskManager taskManager = new TaskManager(mockConsole.Object);
+
+            // Act
+            TaskManager.SearchForTasks(userInput, mockConsole.Object);
+
+            // Assert
+            Equals("\nInvalid choice. Try again.", consoleOutput.ToString());
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchById_AndFindsResults_ShouldDisplayResults()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "3" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now, false),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("1", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should not be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should not be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should be displayed.");
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByTitle_AndFindsResults_ShouldDisplayResults()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "Task" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now, false),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("2", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should not be displayed.");
+        }
+        
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByDescription_AndFindsResults_ShouldDisplayResults()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "Description" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, false),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Now, false),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("3", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should not be displayed.");
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByDueDate_AndFindsResults_ShouldDisplayResults()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "2023-10-25" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, false),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25"), false),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("4", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should not be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should not be displayed.");
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByCompletionStatus_AndFindsResults_ShouldDisplayResults()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "2" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25"), false),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("5", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should not be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should be displayed.");
         }
     }
 }
