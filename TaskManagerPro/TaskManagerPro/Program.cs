@@ -39,20 +39,40 @@ namespace TaskManagerPro
                         break;
                     case "2":
                         UserInterface.DisplayMainMenuChoiceOpeningStatement("Option 2 - Update/Edit Task");
-                        // Update/Edit a task
-                        // UpdateTaskMethod();
-                        UserInterface.DisplayContinueToMainMenuMessage();
-                        break;
+
+                        var taskToEditId = TaskManager.GetValidTaskId(consoleUserInterface);
+                        if (taskToEditId == 0)
+                        {
+                            UserInterface.DisplayContinueToMainMenuMessage();
+                            break;
+                        }
+                        else
+                        {
+                            while (taskToEditId == -1)
+                            {
+                                Console.WriteLine("Invalid Task ID or Task does not exist.\nPlease try again or enter 0 to exit to the main menu.");
+                                taskToEditId = TaskManager.GetValidTaskId(consoleUserInterface);
+                            }
+                            TaskBase taskToEdit = TaskManager.FindTaskById(taskToEditId);
+                            UserInterface.DisplayUpdateSubMenu();
+                            var editChoice = TaskManager.ValidatedEditSelection(consoleUserInterface);
+                            // Update/Edit a task
+                            TaskManager.EditTask(taskToEdit, editChoice, consoleUserInterface);
+                            UserInterface.DisplayContinueToMainMenuMessage();
+                            break;
+                        }
                     case "3":
                         UserInterface.DisplayMainMenuChoiceOpeningStatement("Option 3 - View All Task(s)");
                         // View all tasks
-                        // ViewAllTasksMethod();
+                        TaskManager.DisplayAllTasks();
                         UserInterface.DisplayContinueToMainMenuMessage();
                         break;
                     case "4":
                         UserInterface.DisplayMainMenuChoiceOpeningStatement("Option 4 - Search For Task(s)");
                         // Search for task(s)
-                        // SearchTasksMethod();
+                            // find task
+                            // display task
+                        // SearchTasks();
                         UserInterface.DisplayContinueToMainMenuMessage();
                         break;
                     case "5":
