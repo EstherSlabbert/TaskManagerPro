@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TaskManagerPro
 {
@@ -38,6 +34,17 @@ namespace TaskManagerPro
         {
             Console.WriteLine("\nPress 'Enter' when you are ready to continue to the main menu.");
             Console.ReadLine();
+        }
+
+        public static void DisplayUpdateSubMenu()
+        {
+            Console.WriteLine("Select an option to edit:");
+            Console.WriteLine("1 - Edit Title");
+            Console.WriteLine("2 - Edit Description");
+            Console.WriteLine("3 - Edit Due Date");
+            Console.WriteLine("4 - Toggle Completion Status");
+            Console.WriteLine("5 - Delete Task");
+            Console.WriteLine("6 - Cancel");
         }
     }
 }
