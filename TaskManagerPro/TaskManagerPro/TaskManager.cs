@@ -1,22 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace TaskManagerPro
 {
     public class TaskManager
     {
-        public IUserInterface userInterface;
+        public IUserInterface UserInterface;
         public static List<TaskBase> Tasks = new List<TaskBase>();
         public static int CurrentTaskId;
 
         public TaskManager(IUserInterface userInterface)
         {
-            this.userInterface = userInterface;
+            this.UserInterface = userInterface;
             CurrentTaskId = 0;
         }
 
@@ -72,13 +70,13 @@ namespace TaskManagerPro
         {
             int newTaskId = ++CurrentTaskId;
 
-            userInterface.WriteLine("Enter Task Title: ");
-            string title = userInterface.ReadLine();
+            UserInterface.WriteLine("Enter Task Title: ");
+            string title = UserInterface.ReadLine();
 
-            userInterface.WriteLine("Enter Task Description: ");
-            string description = userInterface.ReadLine();
+            UserInterface.WriteLine("Enter Task Description: ");
+            string description = UserInterface.ReadLine();
 
-            DateTime dueDate = ValidatedUserDateInput(userInterface);
+            DateTime dueDate = ValidatedUserDateInput(UserInterface);
 
             TaskBase newTask = new TaskBase(newTaskId, title, description, dueDate);
             return newTask;
@@ -103,7 +101,7 @@ namespace TaskManagerPro
             if (task.DueDate <= DateTime.Now & !task.TaskIsComplete) Console.ForegroundColor = ConsoleColor.Red;
             else if (task.DueDate >= DateTime.Now & !task.TaskIsComplete) Console.ForegroundColor = ConsoleColor.Blue;
             else Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Due: {task.DueDate.ToString("dd-MM-yyyy")}");
+            Console.WriteLine($"Due: {task.DueDate:dd-MM-yyyy}");
             Console.ResetColor();
             Console.ForegroundColor = task.TaskIsComplete ? ConsoleColor.Green : ConsoleColor.Red;
             Console.WriteLine($"Completion status: {task.TaskIsComplete}");
@@ -133,7 +131,7 @@ namespace TaskManagerPro
         {
             userInterface.WriteLine("Enter your choice (1-6): ");
             string editChoice = userInterface.ReadLine();
-            while (!new[] { "1", "2", "3", "4", "5", "6" }.Any(choice => choice == editChoice))
+            while (new[] { "1", "2", "3", "4", "5", "6" }.All(choice => choice != editChoice))
             {
                 userInterface.WriteLine("Invalid option. Please try again.");
                 userInterface.WriteLine("Enter your choice (1-6): ");
@@ -199,6 +197,27 @@ namespace TaskManagerPro
         {
             return Tasks
                 .Where(task => task.DueDate == dueDate)
+                .ToList();
+        }
+
+        public static List<TaskBase> FindTasksBeforeDueDate(DateTime dueDate)
+        {
+            return Tasks
+                .Where(task => task.DueDate <= dueDate)
+                .ToList();
+        }
+
+        public static List<TaskBase> FindTasksAfterDueDate(DateTime dueDate)
+        {
+            return Tasks
+                .Where(task => task.DueDate >= dueDate)
+                .ToList();
+        }
+
+        public static List<TaskBase> FindTasksBetweenDueDates(DateTime startDate, DateTime endDate)
+        {
+            return Tasks
+                .Where(task => task.DueDate >= startDate && task.DueDate <= endDate)
                 .ToList();
         }
 
@@ -277,7 +296,7 @@ namespace TaskManagerPro
         {
             userInterface.WriteLine("Enter your choice (1-3): ");
             string userChoice = userInterface.ReadLine();
-            while (!new[] { "1", "2", "3" }.Any(choice => choice == userChoice))
+            while (new[] { "1", "2", "3" }.All(choice => choice != userChoice))
             {
                 userInterface.WriteLine("Invalid option. Please try again.");
                 userInterface.WriteLine("Enter your choice (1-3): ");
@@ -336,7 +355,7 @@ namespace TaskManagerPro
             switch (userChoice)
             {
                 case "1":
-                    UserInterface.DisplaySearchSubMenuTitle("ID");
+                    TaskManagerPro.UserInterface.DisplaySearchSubMenuTitle("ID");
                     int potentialId = GetValidTaskId(userInterface);
                     if (potentialId == 0) userInterface.WriteLine("Search cancelled. Returning to main menu...");
                     else if (potentialId == -1)
@@ -347,12 +366,12 @@ namespace TaskManagerPro
                     else DisplayTask(FindTaskById(potentialId));
                     break;
                 case "2":
-                    UserInterface.DisplaySearchSubMenuTitle("Title");
+                    TaskManagerPro.UserInterface.DisplaySearchSubMenuTitle("Title");
                     userInterface.WriteLine("Enter the title/partial title you would like to search for:");
                     var potentialTasksByTitle = FindTasksByPartialTitle(userInterface.ReadLine());
                     if (potentialTasksByTitle.Count == 0)
                     {
-                        UserInterface.DisplayConfirmationToContinueSearchOrExit("Title");
+                        TaskManagerPro.UserInterface.DisplayConfirmationToContinueSearchOrExit("Title");
                         ConsoleKeyInfo keyInfo = Console.ReadKey();
                         if (keyInfo.Key == ConsoleKey.Spacebar) break;
                         else SearchForTasks("2", userInterface);
@@ -367,12 +386,12 @@ namespace TaskManagerPro
                     }
                     break;
                 case "3":
-                    UserInterface.DisplaySearchSubMenuTitle("Description");
+                    TaskManagerPro.UserInterface.DisplaySearchSubMenuTitle("Description");
                     userInterface.WriteLine("Enter the description/partial description you would like to search for:");
                     var potentialTasksByDescription = FindTasksByPartialDescription(userInterface.ReadLine());
                     if (potentialTasksByDescription.Count == 0)
                     {
-                        UserInterface.DisplayConfirmationToContinueSearchOrExit("Description");
+                        TaskManagerPro.UserInterface.DisplayConfirmationToContinueSearchOrExit("Description");
                         ConsoleKeyInfo keyInfo = Console.ReadKey();
                         if (keyInfo.Key == ConsoleKey.Spacebar) break;
                         else SearchForTasks("3", userInterface);
@@ -387,28 +406,14 @@ namespace TaskManagerPro
                     }
                     break;
                 case "4":
-                    UserInterface.DisplaySearchSubMenuTitle("Due Date");
-                    userInterface.WriteLine("Enter the due date you would like to search for:");                    
-                    var potentialTasksByDueDate = FindTasksByDueDate(ValidatedUserDateInput(userInterface));
-                    if (potentialTasksByDueDate.Count == 0)
-                    {
-                        UserInterface.DisplayConfirmationToContinueSearchOrExit("Due Date");
-                        ConsoleKeyInfo keyInfo = Console.ReadKey();
-                        if (keyInfo.Key == ConsoleKey.Spacebar) break;
-                        else SearchForTasks("4", userInterface);
-                    }
-                    else
-                    {
-                        userInterface.WriteLine("\nSearch Results:\n");
-                        foreach (var task in potentialTasksByDueDate)
-                        {
-                            DisplayTask(task);
-                        }
-                    }
+                    TaskManagerPro.UserInterface.DisplaySearchSubMenuTitle("Due Date");
+                    TaskManagerPro.UserInterface.DisplayDueDateSearchSubSubMenu();
+                    var userOptionSelection = ValidatedEditSearchByDueDateSelection(userInterface);
+                    DisplayTasksByDueDateSelection(userInterface, userOptionSelection);
                     break;
                 case "5":
-                    UserInterface.DisplaySearchSubMenuTitle("Completion Status");
-                    UserInterface.DisplayCompletionStatusSearchSubSubMenu();
+                    TaskManagerPro.UserInterface.DisplaySearchSubMenuTitle("Completion Status");
+                    TaskManagerPro.UserInterface.DisplayCompletionStatusSearchSubSubMenu();
                     userInterface.WriteLine("Enter the completion status you would like to search for: ");
                     var userSelection = ValidatedTaskCompletionStatusSelection(userInterface);
                     DisplayTasksByCompletion(userSelection);
@@ -418,6 +423,105 @@ namespace TaskManagerPro
                     break;
                 default:
                     userInterface.WriteLine("\nInvalid choice. Try again.");
+                    break;
+            }
+        }
+
+        public static string ValidatedEditSearchByDueDateSelection(IUserInterface userInterface)
+        {
+            userInterface.WriteLine("Enter your choice (1-5): ");
+            string editChoice = userInterface.ReadLine();
+            while (new[] { "1", "2", "3", "4", "5" }.All(choice => choice != editChoice))
+            {
+                userInterface.WriteLine("Invalid option. Please try again.");
+                userInterface.WriteLine("Enter your choice (1-5): ");
+                editChoice = userInterface.ReadLine();
+            }
+            return editChoice;
+        }
+
+        public static void DisplayTasksByDueDateSelection(IUserInterface userInterface, string userSelection)
+        {
+            switch (userSelection)
+            {
+                case "1":
+                    DateTime userEnteredDueDate1 = ValidatedUserDateInput(userInterface);
+                    if (FindTasksByDueDate(userEnteredDueDate1).Count == 0)
+                    {
+                        TaskManagerPro.UserInterface.DisplayConfirmationToContinueSearchOrExit("Due Date");
+                        ConsoleKeyInfo keyInfo = userInterface.ReadKey();
+                        if (keyInfo.Key == ConsoleKey.Spacebar) break;
+                        else SearchForTasks("4", userInterface);
+                    }
+                    else
+                    {
+                        userInterface.WriteLine("\nSearch Results:\n");
+                        foreach (var task in FindTasksByDueDate(userEnteredDueDate1))
+                        {
+                            DisplayTask(task);
+                        }
+                    }
+                    break;
+                case "2":
+                    DateTime userEnteredDueDate2 = ValidatedUserDateInput(userInterface);
+                    if (FindTasksBeforeDueDate(userEnteredDueDate2).Count == 0)
+                    {
+                        TaskManagerPro.UserInterface.DisplayConfirmationToContinueSearchOrExit("Due Date");
+                        ConsoleKeyInfo keyInfo = userInterface.ReadKey();
+                        if (keyInfo.Key == ConsoleKey.Spacebar) break;
+                        else SearchForTasks("4", userInterface);
+                    }
+                    else
+                    {
+                        userInterface.WriteLine("\nSearch Results:\n");
+                        foreach (var task in FindTasksBeforeDueDate(userEnteredDueDate2))
+                        {
+                            DisplayTask(task);
+                        }
+                    }
+                    break;
+                case "3":
+                    DateTime userEnteredDueDate3 = ValidatedUserDateInput(userInterface);
+                    if (FindTasksAfterDueDate(userEnteredDueDate3).Count == 0)
+                    {
+                        TaskManagerPro.UserInterface.DisplayConfirmationToContinueSearchOrExit("Due Date");
+                        ConsoleKeyInfo keyInfo = userInterface.ReadKey();
+                        if (keyInfo.Key == ConsoleKey.Spacebar) break;
+                        else SearchForTasks("4", userInterface);
+                    }
+                    else
+                    {
+                        userInterface.WriteLine("\nSearch Results:\n");
+                        foreach (var task in FindTasksAfterDueDate(userEnteredDueDate3))
+                        {
+                            DisplayTask(task);
+                        }
+                    }
+                    break;
+                case "4":
+                    DateTime userEnteredStartDueDate = ValidatedUserDateInput(userInterface);
+                    DateTime userEnteredEndDueDate = ValidatedUserDateInput(userInterface);
+                    if (FindTasksBetweenDueDates(userEnteredStartDueDate, userEnteredEndDueDate).Count == 0)
+                    {
+                        TaskManagerPro.UserInterface.DisplayConfirmationToContinueSearchOrExit("Due Date");
+                        ConsoleKeyInfo keyInfo = userInterface.ReadKey();
+                        if (keyInfo.Key == ConsoleKey.Spacebar) break;
+                        else SearchForTasks("4", userInterface);
+                    }
+                    else
+                    {
+                        userInterface.WriteLine("\nSearch Results:\n");
+                        foreach (var task in FindTasksBetweenDueDates(userEnteredStartDueDate, userEnteredEndDueDate))
+                        {
+                            DisplayTask(task);
+                        }
+                    }
+                    break;
+                case "5":
+                    Console.WriteLine("Search cancelled. Returning to main menu...");
+                    break;
+                default:
+                    Console.WriteLine("Invalid Input. Try again.");
                     break;
             }
         }

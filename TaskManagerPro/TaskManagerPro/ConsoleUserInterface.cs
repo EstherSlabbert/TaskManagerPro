@@ -13,6 +13,11 @@ namespace TaskManagerPro
         {
             Console.WriteLine(value);
         }
+
+        public ConsoleKeyInfo ReadKey()
+        {
+            return Console.ReadKey();
+        }
     }
 
 }

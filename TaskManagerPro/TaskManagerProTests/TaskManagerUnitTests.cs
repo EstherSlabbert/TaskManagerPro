@@ -3,7 +3,6 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using TaskManagerPro;
 
 namespace TaskManagerProTests
@@ -103,7 +102,7 @@ namespace TaskManagerProTests
             TaskManager.Tasks = new List<TaskBase>
         {
             new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-            new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+            new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
         };
 
             // Act
@@ -185,7 +184,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
             };
 
             TaskManager.Tasks = tasks;
@@ -203,7 +202,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
             };
 
             TaskManager.Tasks = tasks;
@@ -252,7 +251,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
             };
 
             TaskManager.Tasks = tasks;
@@ -272,7 +271,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
             };
 
             TaskManager.Tasks = tasks;
@@ -291,7 +290,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
             };
 
             TaskManager.Tasks = tasks;
@@ -310,7 +309,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
             };
 
             TaskManager.Tasks = tasks;
@@ -329,7 +328,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
             };
 
             TaskManager.Tasks = tasks;
@@ -349,7 +348,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
             };
 
             TaskManager.Tasks = tasks;
@@ -368,7 +367,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", new DateTime(2023, 10, 1), true),
-                new TaskBase(2, "Task 2", "Description 2", new DateTime(2023, 10, 2), false),
+                new TaskBase(2, "Task 2", "Description 2", new DateTime(2023, 10, 2)),
             };
 
             TaskManager.Tasks = tasks;
@@ -387,7 +386,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", new DateTime(2023, 10, 1), true),
-                new TaskBase(2, "Task 2", "Description 2", new DateTime(2023, 10, 2), false),
+                new TaskBase(2, "Task 2", "Description 2", new DateTime(2023, 10, 2)),
             };
 
             TaskManager.Tasks = tasks;
@@ -406,7 +405,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
         {
             new TaskBase(1, "Task 1", "Description 1", new DateTime(2023, 10, 1), true),
-            new TaskBase(2, "Task 2", "Description 2", new DateTime(2023, 10, 2), false),
+            new TaskBase(2, "Task 2", "Description 2", new DateTime(2023, 10, 2)),
             new TaskBase(3, "Task 3", "Description 3", new DateTime(2023, 10, 1), true),
         };
 
@@ -426,7 +425,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
         {
             new TaskBase(1, "Task 1", "Description 1", new DateTime(2023, 10, 1), true),
-            new TaskBase(2, "Task 2", "Description 2", new DateTime(2023, 10, 2), false),
+            new TaskBase(2, "Task 2", "Description 2", new DateTime(2023, 10, 2)),
             new TaskBase(3, "Task 3", "Description 3", new DateTime(2023, 10, 1), true),
         };
 
@@ -446,10 +445,10 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
                 new TaskBase(3, "Another Title 1", "Description 3", DateTime.Now.AddDays(2), true),
-                new TaskBase(4, "Another Title 2", "Description 4", DateTime.Now.AddDays(10), false),
-                new TaskBase(5, "Another Task 1", "Description 5", DateTime.Now.AddDays(2), false),
+                new TaskBase(4, "Another Title 2", "Description 4", DateTime.Now.AddDays(10)),
+                new TaskBase(5, "Another Task 1", "Description 5", DateTime.Now.AddDays(2)),
             };
 
             TaskManager.Tasks = tasks;
@@ -468,7 +467,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
                 new TaskBase(3, "Another Title 1", "Description 3", DateTime.Now.AddDays(2), true),
             };
 
@@ -488,10 +487,10 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1 magic word", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
                 new TaskBase(3, "Another Title 1", "Description 3", DateTime.Now.AddDays(2), true),
-                new TaskBase(4, "Another Title 2", "Description 4 magic word", DateTime.Now.AddDays(10), false),
-                new TaskBase(5, "Another Task 1", "Description 5 magic word", DateTime.Now.AddDays(2), false),
+                new TaskBase(4, "Another Title 2", "Description 4 magic word", DateTime.Now.AddDays(10)),
+                new TaskBase(5, "Another Task 1", "Description 5 magic word", DateTime.Now.AddDays(2)),
             };
 
             TaskManager.Tasks = tasks;
@@ -510,7 +509,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
                 new TaskBase(3, "Another Title 1", "Description 3", DateTime.Now.AddDays(2), true),
             };
 
@@ -530,7 +529,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
                 new TaskBase(3, "Task 3", "Description 3", DateTime.Now.AddDays(2), true),
             };
 
@@ -572,7 +571,7 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
             };
 
             TaskManager.Tasks = tasks;
@@ -654,9 +653,9 @@ namespace TaskManagerProTests
 
             var tasks = new List<TaskBase>
             {
-                new TaskBase(1, "Original Title", "Description", DateTime.Now, false),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
-                new TaskBase(5, "Title 5", "Description 5", DateTime.Now, false),
+                new TaskBase(1, "Original Title", "Description", DateTime.Now),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
+                new TaskBase(5, "Title 5", "Description 5", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
@@ -681,9 +680,9 @@ namespace TaskManagerProTests
 
             var tasks = new List<TaskBase>
             {
-                new TaskBase(2, "Title 1", "Original Description", DateTime.Now, false),
-                new TaskBase(3, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
-                new TaskBase(5, "Title 5", "Description 5", DateTime.Now, false),
+                new TaskBase(2, "Title 1", "Original Description", DateTime.Now),
+                new TaskBase(3, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
+                new TaskBase(5, "Title 5", "Description 5", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
@@ -714,9 +713,9 @@ namespace TaskManagerProTests
 
             var tasks = new List<TaskBase>
             {
-                new TaskBase(1, "Title 2", "Description 2", DateTime.Now, false),
-                new TaskBase(3, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
-                new TaskBase(5, "Title 5", "Description 5", DateTime.Now, true),
+                new TaskBase(1, "Title 2", "Description 2", DateTime.Now),
+                new TaskBase(3, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
+                new TaskBase(5, "Title 5", "Description 5", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
@@ -745,7 +744,7 @@ namespace TaskManagerProTests
             var consoleOutput = new StringWriter();
             Console.SetOut(consoleOutput);
 
-            var taskToEdit = new TaskBase(1, "Title 2", "Description 2", DateTime.Now, false);
+            var taskToEdit = new TaskBase(1, "Title 2", "Description 2", DateTime.Now);
 
             TaskManager taskManager = new TaskManager(mockConsole.Object);
 
@@ -768,13 +767,13 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1), false),
-                new TaskBase(5, "Title 5", "Description 5", DateTime.Now, false),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now.AddDays(1)),
+                new TaskBase(5, "Title 5", "Description 5", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
 
-            var taskToEdit = new TaskBase(5, "Title 5", "Description 5", DateTime.Now, false);
+            var taskToEdit = new TaskBase(5, "Title 5", "Description 5", DateTime.Now);
 
             TaskManager taskManager = new TaskManager(mockConsole.Object);
 
@@ -785,7 +784,7 @@ namespace TaskManagerProTests
             Assert.AreEqual(2, TaskManager.Tasks.Count, "One task should be removed.");
             Equals("Task Completion Status successfully updated!", consoleOutput.ToString());
         }
-        
+
 
         [TestMethod]
         public void EditTask_WhenChoiceIsInvalid_ShouldDisplayErrorMessage()
@@ -795,7 +794,7 @@ namespace TaskManagerProTests
             var consoleOutput = new StringWriter();
             Console.SetOut(consoleOutput);
 
-            var taskToEdit = new TaskBase(1, "Original Title", "Description", DateTime.Now, false);
+            var taskToEdit = new TaskBase(1, "Original Title", "Description", DateTime.Now);
             var userInput = "Invalid Choice"; // Invalid user input
 
             TaskManager taskManager = new TaskManager(mockConsole.Object);
@@ -850,7 +849,7 @@ namespace TaskManagerProTests
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
                 new TaskBase(2, "Task 2", "Description 2", DateTime.Now, true),
-                new TaskBase(3, "Task 3", "Description 3", DateTime.Now, false),
+                new TaskBase(3, "Task 3", "Description 3", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
@@ -876,7 +875,7 @@ namespace TaskManagerProTests
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
                 new TaskBase(2, "Task 2", "Description 2", DateTime.Now, true),
-                new TaskBase(3, "Task 3", "Description 3", DateTime.Now, false),
+                new TaskBase(3, "Task 3", "Description 3", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
@@ -939,9 +938,9 @@ namespace TaskManagerProTests
 
             var tasks = new List<TaskBase>
             {
-                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, false),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now, false),
-                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
@@ -970,9 +969,9 @@ namespace TaskManagerProTests
 
             var tasks = new List<TaskBase>
             {
-                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, false),
-                new TaskBase(2, "Task 2", "Description 2", DateTime.Now, false),
-                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now),
+                new TaskBase(2, "Task 2", "Description 2", DateTime.Now),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
@@ -988,7 +987,7 @@ namespace TaskManagerProTests
             Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should be displayed.");
             Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should not be displayed.");
         }
-        
+
         [TestMethod]
         public void SearchForTasks_WhenUserSelectsSearchByDescription_AndFindsResults_ShouldDisplayResults()
         {
@@ -1001,9 +1000,9 @@ namespace TaskManagerProTests
 
             var tasks = new List<TaskBase>
             {
-                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, false),
-                new TaskBase(2, "Task 2", "Something else", DateTime.Now, false),
-                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Now),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Now),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
@@ -1020,36 +1019,6 @@ namespace TaskManagerProTests
             Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should not be displayed.");
         }
 
-        [TestMethod]
-        public void SearchForTasks_WhenUserSelectsSearchByDueDate_AndFindsResults_ShouldDisplayResults()
-        {
-            // Arrange
-            var mockUserInterface = new Mock<IUserInterface>();
-            var userInput = new Queue<string>(new[] { "2023-10-25" });
-
-            mockUserInterface.Setup(u => u.ReadLine())
-                .Returns(() => userInput.Dequeue());
-
-            var tasks = new List<TaskBase>
-            {
-                new TaskBase(1, "Task 1", "Description 1", DateTime.Now, false),
-                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25"), false),
-                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
-            };
-
-            TaskManager.Tasks = tasks;
-
-            var consoleOutput = new StringWriter();
-            Console.SetOut(consoleOutput);
-
-            // Act
-            TaskManager.SearchForTasks("4", mockUserInterface.Object);
-
-            // Assert
-            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should not be displayed.");
-            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should be displayed.");
-            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should not be displayed.");
-        }
 
         [TestMethod]
         public void SearchForTasks_WhenUserSelectsSearchByCompletionStatus_AndFindsResults_ShouldDisplayResults()
@@ -1064,8 +1033,8 @@ namespace TaskManagerProTests
             var tasks = new List<TaskBase>
             {
                 new TaskBase(1, "Task 1", "Description 1", DateTime.Now, true),
-                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25"), false),
-                new TaskBase(3, "Another Title", "Description 3", DateTime.Now, false),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25")),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Now),
             };
 
             TaskManager.Tasks = tasks;
@@ -1080,6 +1049,193 @@ namespace TaskManagerProTests
             Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should not be displayed.");
             Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should be displayed.");
             Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should be displayed.");
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByDueDate_AndSearchBySpecificDate_AllAvailableMatchesShouldBeDisplayed()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "1", "2023-10-25" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Parse("2023-10-25"), true),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25")),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Parse("2023-10-30")),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("4", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should not be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should be displayed.");
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByDueDate_AndSearchByBeforeDate_TasksWithDueDatesBeforeAndIncludingDateShouldBeDisplayed()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "2", "2023-10-30" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Parse("2023-10-25"), true),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25")),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Parse("2023-10-30")),
+                new TaskBase(4, "title", "descr", DateTime.Parse("2024-1-1")),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("4", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 4"), "Search Results containing task 4 should not be displayed.");
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByDueDate_AndSearchByAfterDate_TasksWithDueDatesAfterAndIncludingDateShouldBeDisplayed()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "3", "2023-10-30" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Parse("2023-10-25"), true),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25")),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Parse("2023-10-30")),
+                new TaskBase(4, "title", "descr", DateTime.Parse("2024-1-1")),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("4", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should not be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should not be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 4"), "Search Results containing task 4 should be displayed.");
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByDueDate_AndSearchByBetweenDates_TasksWithDueDatesBetweenAndIncludingDateShouldBeDisplayed()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "4", "2023-10-30", "2024-2-20" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Parse("2023-10-25"), true),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25")),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Parse("2023-10-30")),
+                new TaskBase(4, "title", "description", DateTime.Parse("2024-1-1")),
+                new TaskBase(5, "another", "yet again", DateTime.Parse("2024-2-1"), true),
+                new TaskBase(6, "another random title", "random yet again", DateTime.Parse("2024-3-1")),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("4", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 1"), "Search Results containing task 1 should not be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 2"), "Search Results containing task 2 should not be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 3"), "Search Results containing task 3 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 4"), "Search Results containing task 4 should be displayed.");
+            Assert.IsTrue(consoleOutput.ToString().Contains("Task ID: 5"), "Search Results containing task 5 should be displayed.");
+            Assert.IsFalse(consoleOutput.ToString().Contains("Task ID: 6"), "Search Results containing task 6 should not be displayed.");
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByDueDate_AndCancel_ShouldReturnToMainMenu()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "5" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("4", mockUserInterface.Object);
+
+            // Assert
+            Equals("Search cancelled. Returning to main menu...", consoleOutput.ToString());
+        }
+
+        [TestMethod]
+        public void SearchForTasks_WhenUserSelectsSearchByDueDate_AndNoResultsAreFound_ShouldReturnMessageAndAbilityToReturnToMainMenu()
+        {
+            // Arrange
+            var mockUserInterface = new Mock<IUserInterface>();
+            var userInput = new Queue<string>(new[] { "1", "2022-4-4" });
+
+            mockUserInterface.Setup(u => u.ReadLine())
+                .Returns(() => userInput.Dequeue());
+
+            // Mock the ReadKey method to return a spacebar key
+            mockUserInterface.Setup(u => u.ReadKey()).Returns(new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false));
+
+            var tasks = new List<TaskBase>
+            {
+                new TaskBase(1, "Task 1", "Description 1", DateTime.Parse("2023-10-25"), true),
+                new TaskBase(2, "Task 2", "Something else", DateTime.Parse("2023-10-25")),
+                new TaskBase(3, "Another Title", "Description 3", DateTime.Parse("2023-10-30")),
+            };
+
+            TaskManager.Tasks = tasks;
+
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+
+            // Act
+            TaskManager.SearchForTasks("4", mockUserInterface.Object);
+
+            // Assert
+            Assert.IsTrue(consoleOutput.ToString().Contains("\nNo tasks found.\nPlease try again."));
+            Assert.IsTrue(consoleOutput.ToString().Contains("\nPress 'Spacebar' to return to main menu or 'Enter' to continue searching by Due Date: "));
         }
     }
 }
